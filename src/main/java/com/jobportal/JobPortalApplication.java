@@ -1,5 +1,6 @@
 package com.jobportal;
 
+<<<<<<< HEAD
 import com.jobportal.model.Role;
 import com.jobportal.model.User;
 import com.jobportal.repository.UserRepository;
@@ -37,4 +38,14 @@ public class JobPortalApplication {
             }
         };
     }
+=======
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class JobPortalApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(JobPortalApplication.class, args);
+    }
+>>>>>>> 68b12bc93b1bba881f51df708fd58b4797bbdf1e
 }

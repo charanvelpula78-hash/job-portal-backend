@@ -1,5 +1,6 @@
 package com.jobportal.controller;
 
+<<<<<<< HEAD
 import com.jobportal.dto.LoginRequest;
 import com.jobportal.dto.RegisterRequest;
 import com.jobportal.model.Role;
@@ -10,21 +11,39 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+=======
+import com.jobportal.dto.Dtos.*;
+import com.jobportal.security.CurrentUser;
+import com.jobportal.service.AuthService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 68b12bc93b1bba881f51df708fd58b4797bbdf1e
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
+<<<<<<< HEAD
     private final UserRepository users;
     private final PasswordEncoder encoder;
 
     public AuthController(UserRepository users, PasswordEncoder encoder) {
         this.users = users;
         this.encoder = encoder;
+=======
+    private final AuthService auth;
+    private final CurrentUser currentUser;
+
+    public AuthController(AuthService auth, CurrentUser currentUser) {
+        this.auth = auth;
+        this.currentUser = currentUser;
+>>>>>>> 68b12bc93b1bba881f51df708fd58b4797bbdf1e
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
+<<<<<<< HEAD
     public User register(@Valid @RequestBody RegisterRequest req) {
         if (req.role() == Role.ADMIN) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Admin accounts cannot be self-registered");
@@ -68,5 +87,20 @@ public class AuthController {
         u.setSkills(changes.getSkills());
         u.setAbout(changes.getAbout());
         return users.save(u);
+=======
+    public AuthResponse register(@Valid @RequestBody RegisterRequest req) {
+        return auth.register(req);
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@Valid @RequestBody LoginRequest req) {
+        return auth.login(req);
+    }
+
+    /** Lets the frontend re-check who is logged in after a page refresh. */
+    @GetMapping("/me")
+    public UserDto me() {
+        return AuthService.toDto(currentUser.get());
+>>>>>>> 68b12bc93b1bba881f51df708fd58b4797bbdf1e
     }
 }
